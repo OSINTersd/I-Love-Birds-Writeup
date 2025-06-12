@@ -47,7 +47,7 @@ When we run birds in gdb, we are prompted to fill the buffer. Go ahead and fill 
 
 Feel free to copy/paste
 
-` AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+```AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ```
 
 Once you press enter, you will be stopped at our first breakpoint. 
 
