@@ -1,4 +1,4 @@
-\##### pwn challenge  
+##### pwn challenge  
 Required Tools:   
 \- checksec  
 \- gdb debugger  
@@ -81,7 +81,7 @@ We can take advantage of pwntools p32() and p64() functions to add our canary an
   
 pwntools script:  
   
-\`\`\`  
+```  
 from pwn import \*  
   
 \# -- PAYLOAD CREATION -- #  
@@ -118,7 +118,7 @@ conn.sendline(payload)
 conn.interactive()  
   
 \# --------------------- #  
-\`\`\`  
+```  
   
 Explanation of big -> little endian conversion  
   
