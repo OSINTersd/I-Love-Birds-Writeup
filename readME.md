@@ -47,12 +47,12 @@ When we run birds in gdb, we are prompted to fill the buffer. Go ahead and fill 
   
 Feel free to copy/paste  
   
-\`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  
+\` AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  
   
 Once you press enter, you will be stopped at our first breakpoint.   
   
 At this breakpoint we want to examine the stack to see where the buffer ends and the canary begins. To inspect the stack, run the below command:  
-\*\*x/127wx $rsp\*\*  
+** x/127wx $rsp **  
 !\[\[stack-screenshot.png\]\]  
 \- Lets break down the above GDB command:  
     - x/ -> examine -> used to inspect memory  
