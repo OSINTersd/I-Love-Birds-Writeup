@@ -73,7 +73,7 @@ If we run the command \*\*info stack frame\*\*, we can find the contents of RIP 
   
 We found that the return address is 8 bytes away from the canary!  
   
-!\[\[stack-screenshot-Highlights.png\]\]  
+![Stack Screenshot](stack-screenshot-Highlights.png)
   
 We now know everything we need in order to write our pwntools script.  
   
