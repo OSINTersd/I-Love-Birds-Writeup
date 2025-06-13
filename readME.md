@@ -130,6 +130,6 @@ For example, consider the big endian number 123. In little endian, that number w
 
 gdb converts stack memory from little endian to big endian for readability purposes. But when we perform our buffer overflow attack, we have to make sure the data ends up on the stack in little endian format.
 
-However, each character/byte is represented with two hexidecimal digits. These two digits don't change order. ![[big-little-endian.png]]
+However, each character/byte is represented with two hexidecimal digits. These two digits don't change order. ![big-little-endian](big-little-endian.png)
 
 Putting the connection in interactive mode allows the user to run shell commands.#
