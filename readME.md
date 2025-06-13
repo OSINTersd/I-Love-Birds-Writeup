@@ -10,7 +10,7 @@ For this challenge, all that we need to do is find the distance between the buff
 ### 1.  Finding all of our needed offsets
 - We will use gdb to debug the **birds** executable. We will set two breakpoints. One at the instruction that takes place right after the buffer is filled, and another right on the RET instruction.
 - Because this program is so simple you may be able to tell where to place both of these breakpoints by running the command **disas main** 
-![[main disassembly.png]]
+![main dissassembly](main%20disassembly.png)
 
 We can go ahead and place our breakpoints  at the RET instruction, and at the cmpl assembly instruction
 ```
