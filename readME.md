@@ -23,21 +23,21 @@ Breakpoint 2 at 0x401285
 If you want to make sure you are understanding correctly and are placing your breakpoints at the right spot, you can open up the executable in ghidra or IDA pro and compare memory addresses with their places in the decompiled C code.
 
 After analyzing the executable, we find **main** in the symbol tree under functions. We can see that, although gdb and Ghidra disassembled the birds executable a little differently, that we have the correct position for both the start of the if statement, and the return address for main
-![[ghidra-1.png]]
+![ghidra-1](ghidra-1.png)
 
 While we are in gdb and ghidra, let us also figure out the address of the call to run the shell. We can skip straight to this address in memory to avoid having to call a gadget.
 
 Let's first disassemble win() in gdb, find the address we think is the system call to run the shell, and then verify we are correct with ghidra
- ![[win disassembly.png]]
+ ![win disassembly](win%20disassembly.png)
 It appears that the system call in **win** happens at 0x4011e6 in memory. And we can verify this in ghidra by finding **win** in the Symbol Tree
-![[win breakpoint.png]]
+![win breakpoint](win%20breakpoint.png)
 
 **WATCH OUT!**
 
 If we assumed that this memory address is where we should jump to in order to execute our shell system call, we would be mistaken! We have to remember that function calls require setup in assembly. The system function call requires an argument  (a command). Recall that in linux x86-64 assembly, RDI is a functions first argument, followed by RSI, RDX , RCX, and so on. This means that RDI must be filled with the system command '/bin/sh' before the system call, otherwise the function call will fail or behave unpredictably. 
 
 From looking at ghidra's visual debugger, we can see that inside of the IF statement there are 2 lines of preparation before the system call is made. This means we should override main's return address with **0x4011dc** , which will bring us right to our shell system call.
-![[Assembly Preparation.png]]
+![Assembly Preparation](Assembly%20Preparation.png)
 
 Ok, so now it's time to run birds with the breakpoints we have set. 
 1. On our first breakpoint, we are trying to determine the distance between the buffer and the canary
@@ -53,7 +53,7 @@ Once you press enter, you will be stopped at our first breakpoint.
 
 At this breakpoint we want to examine the stack to see where the buffer ends and the canary begins. To inspect the stack, run the below command:
 **x/127wx $rsp**
-![[stack-screenshot.png]]
+![stack-screenshot](stack-screenshot.png)
 - Lets break down the above GDB command:
 	- x/ -> examine -> used to inspect memory
 	- 128 -> Specifies the number of units to examine, in this case, 128 units
@@ -69,11 +69,11 @@ Let's keep this screenshot in mind and continue to the next breakpoint. We can c
 Once we break at the RET instruction, all we have to do is step one instruction forward and find the contents of RIP. Recall that RIP is the instruction pointer. Because we broke right before RET, if we step one instruction forward with the command **stepi**, the next instruction will be where we are returning to, AKA the return address of main.
 
 If we run the command **info stack frame**, we can find the contents of RIP , and try and find this address on the stack that we took a screenshot of before.
-![[RIP Contents.png]]
+![RIP Contents](RIP%20Contents.png)
 
 We found that the return address is 8 bytes away from the canary!
 
-![[stack-screenshot-Highlights.png]]
+![stack-screenshot-Highlights](stack-screenshot-Highlights.png)
 
 We now know everything we need in order to write our pwntools script.
 
